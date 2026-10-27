@@ -1,6 +1,6 @@
 """Reproducible original diagrams and animated learning examples."""
 from pathlib import Path
-from html import escape
+from functools import lru_cache
 import math
 import json
 import re
@@ -17,43 +17,41 @@ STYLE = json.loads(Path(__file__).with_name('visual-style.json').read_text(encod
 BG, INK, MUTED = (STYLE[key] for key in ('background', 'text', 'muted'))
 SURFACE, BORDER, PANEL = (STYLE[key] for key in ('surface', 'border', 'panel'))
 FONT_FAMILY = STYLE['font_family']
+ACTIVE_TEXT = STYLE['active_text']
 PRIMARY, SUCCESS, EMPHASIS, SUBDUED, SECONDARY = (STYLE[key] for key in ('primary', 'success', 'emphasis', 'subdued', 'secondary'))
 FILLS = {STYLE[key]: value for key, value in STYLE['fills'].items()}
-FONTS = Path('C:/Windows/Fonts')
+BODY_FONT = Path(__file__).parent / STYLE['font_file']
+HEADING_FONT = Path(STYLE['heading_font_file'])
 
 
-def font(size=22, bold=False):
-    return ImageFont.truetype(str(FONTS / ('seguisb.ttf' if bold else 'segoeui.ttf')), size)
+@lru_cache(maxsize=64)
+def font(size=22, bold=False, heading=False):
+    result = ImageFont.truetype(str(HEADING_FONT if heading else BODY_FONT), size)
+    if not heading:
+        axes = result.get_variation_axes()
+        result.set_variation_by_axes([700 if bold else 400 for _ in axes])
+    return result
 
 
 class Canvas:
-    def __init__(self, title, subtitle='', svg=False):
+    def __init__(self, title, subtitle=''):
         self.title = title
         self.im = Image.new('RGB', (W, H), BG)
         self.d = ImageDraw.Draw(self.im)
-        self.svg = [] if svg else None
-        self.text(40, 27, title, 32, bold=True)
-        self.text(40, 78, subtitle, 20, MUTED, width=1040)
+        self.text(40, 27, title.upper(), 36, bold=True, heading=True, width=1040)
+        self.text(40, 82, subtitle, 18, MUTED, width=1040)
 
-    def rect(self, box, fill=SURFACE, outline=BORDER, radius=16, stroke=2):
+    def rect(self, box, fill=SURFACE, outline=BORDER, radius=0, stroke=1):
         self.d.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=stroke)
-        if self.svg is not None:
-            x, y, r, b = box
-            self.svg.append(f'<rect x="{x}" y="{y}" width="{r-x}" height="{b-y}" rx="{radius}" fill="{fill}" stroke="{outline}" stroke-width="{stroke}"/>')
 
-    def line(self, points, color=MUTED, stroke=3):
+    def line(self, points, color=MUTED, stroke=2):
         self.d.line(points, fill=color, width=stroke)
-        if self.svg is not None:
-            coords = ' '.join(f'{x},{y}' for x, y in points)
-            self.svg.append(f'<polyline points="{coords}" fill="none" stroke="{color}" stroke-width="{stroke}" stroke-linejoin="round"/>')
 
     def circle(self, x, y, r, fill, outline=None, stroke=2):
         self.d.ellipse((x-r, y-r, x+r, y+r), fill=fill, outline=outline, width=stroke)
-        if self.svg is not None:
-            self.svg.append(f'<circle cx="{x}" cy="{y}" r="{r}" fill="{fill}" stroke="{outline or fill}" stroke-width="{stroke}"/>')
 
-    def text(self, x, y, value, size=22, color=INK, bold=False, width=None, center=False):
-        f = font(size, bold)
+    def text(self, x, y, value, size=22, color=INK, bold=False, width=None, center=False, heading=False):
+        f = font(size, bold, heading)
         lines = []
         for paragraph in str(value).split('\n'):
             current = ''
@@ -68,13 +66,10 @@ class Canvas:
         for line in lines:
             px = x - self.d.textlength(line, font=f)/2 if center else x
             self.d.text((px, y), line, font=f, fill=color, anchor='lt')
-            if self.svg is not None:
-                weight = 600 if bold else 400
-                self.svg.append(f'<text x="{px:.2f}" y="{y}" font-family="{escape(FONT_FAMILY)}" font-size="{size}" font-weight="{weight}" fill="{color}" dominant-baseline="text-before-edge">{escape(line)}</text>')
             y += size+8
         return y
 
-    def arrow(self, start, end, color=PRIMARY, stroke=4, progress=None):
+    def arrow(self, start, end, color=PRIMARY, stroke=2, progress=None):
         self.line([start, end], color, stroke)
         angle = math.atan2(end[1]-start[1], end[0]-start[0])
         wing = 11
@@ -86,31 +81,32 @@ class Canvas:
             self.circle(x, y, 8, color)
 
     def card(self, x, y, w, h, title, body='', color=PRIMARY, active=False):
-        self.rect((x, y, x+w, y+h), FILLS[color] if active else SURFACE, color if active else BORDER)
-        bottom = self.text(x+20, y+18, title, 23, color, True, w-40)
+        fill = FILLS[color] if active else SURFACE
+        text_color = ACTIVE_TEXT if active and fill == PRIMARY else INK
+        self.rect((x, y, x+w, y+h), fill, fill)
+        bottom = self.text(x+20, y+18, title, 23, text_color, False, w-40)
         if body:
-            self.text(x+20, bottom+12, body, 21, INK, width=w-40)
+            self.text(x+20, bottom+12, body, 21, text_color, width=w-40)
 
     def banner(self, step, total, title, detail):
-        self.rect((40, 490, 1080, 605), PANEL, PANEL)
+        self.line([(40, 493), (40, 598)], PRIMARY, 3)
         self.text(60, 506, f'{step+1} / {total}   {title}', 24, INK, True, 1000)
         self.text(60, 547, detail, 20, MUTED, width=1000)
 
     def footer(self, text):
-        self.text(40, 625, text, 17, MUTED, width=1040)
+        self.text(40, 625, text, 15, MUTED, width=1040)
 
-    def save_svg(self, name):
-        payload = '\n'.join(self.svg)
-        (OUT / f'{name}.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}" role="img"><title>{escape(self.title)}</title><rect width="{W}" height="{H}" fill="{BG}"/>{payload}</svg>', encoding='utf-8')
+    def save_static(self, name):
+        self.im.save(OUT / f'{name}.png', optimize=True)
         self.im.save(QA / f'{name}.png')
 
 
 def static_diagrams():
-    c = Canvas('Компьютер: четыре роли', 'Кто выполняет работу, где находятся данные и как они попадают в систему', True)
+    c = Canvas('Компьютер: четыре роли', 'Кто выполняет работу, где находятся данные и как они попадают в систему')
     c.card(40, 175, 280, 220, 'ПРОЦЕССОР', 'Инструкции\nВычисления\nРегистры и кэши', PRIMARY, True)
-    c.card(405, 175, 310, 220, 'ОПЕРАТИВНАЯ ПАМЯТЬ', 'Рабочие данные\nИнструкции программы\nБуферы обмена', SUCCESS, True)
-    c.card(800, 145, 280, 120, 'НАКОПИТЕЛЬ', 'Файлы между запусками', EMPHASIS, True)
-    c.card(800, 285, 280, 160, 'СЕТЕВОЙ ИНТЕРФЕЙС', 'Обмен с другими узлами', SECONDARY, True)
+    c.card(405, 175, 310, 220, 'ОПЕРАТИВНАЯ ПАМЯТЬ', 'Рабочие данные\nИнструкции программы\nБуферы обмена', SUCCESS)
+    c.card(800, 145, 280, 120, 'НАКОПИТЕЛЬ', 'Файлы между запусками', EMPHASIS)
+    c.card(800, 285, 280, 160, 'СЕТЕВОЙ ИНТЕРФЕЙС', 'Обмен с другими узлами', SECONDARY)
     c.arrow((330, 270), (393, 270))
     c.arrow((393, 300), (330, 300), SUCCESS)
     c.arrow((730, 225), (786, 205), EMPHASIS)
@@ -121,23 +117,23 @@ def static_diagrams():
     c.text(65, 488, 'Операционная система', 24, bold=True)
     c.text(65, 529, 'Управляет ресурсами и предоставляет программам доступ к ним', 22)
     c.footer('Стрелки показывают обмен данными; точная схема шин и контроллеров здесь опущена.')
-    c.save_svg('computer-overview')
+    c.save_static('computer-overview')
 
-    c = Canvas('Байты одинаковые — смысл задаёт формат', 'Биты, числовая интерпретация и кодировка текста', True)
+    c = Canvas('Байты одинаковые — смысл задаёт формат', 'Биты, числовая интерпретация и кодировка текста')
     c.text(40, 135, 'Один байт = 8 бит', 25, bold=True)
     for i in range(8):
         x = 40+i*65
         c.rect((x, 185, x+54, 243), FILLS[PRIMARY], PRIMARY, radius=8)
-        c.text(x+27, 197, '1', 28, PRIMARY, True, center=True)
+        c.text(x+27, 197, '1', 28, ACTIVE_TEXT, False, center=True)
     c.card(650, 130, 430, 145, '11111111', 'Без знака: 255\nДополнительный код: −1', SECONDARY, True)
     c.text(40, 300, 'Текст в UTF-8', 25, bold=True)
     columns = [(40, 'A', 'U+0041', '41', '1 байт'), (405, 'Я', 'U+042F', 'D0 AF', '2 байта'), (770, 'Кодовая позиция', 'U+1F600', 'F0 9F 98 80', '4 байта')]
     for x, title, code, data, size in columns:
         c.card(x, 350, 310, 195, title, f'{code}\nБайты: {data}\n{size}', SUCCESS, True)
     c.footer('Число байт, число кодовых позиций и число видимых символов — разные величины.')
-    c.save_svg('data-representation')
+    c.save_static('data-representation')
 
-    c = Canvas('HDD и SSD: разные способы хранения', 'Характер доступа влияет на задержку и скорость устройства', True)
+    c = Canvas('HDD и SSD: разные способы хранения', 'Характер доступа влияет на задержку и скорость устройства')
     c.card(40, 140, 490, 340, 'HDD · магнитный накопитель', '', PRIMARY)
     for r in (92, 67, 42):
         c.circle(175, 305, r, PANEL, PRIMARY)
@@ -158,11 +154,11 @@ def static_diagrams():
     c.text(850, 520, 'IOPS', 25, EMPHASIS, True)
     c.text(850, 560, 'Операций за секунду', 21)
     c.footer('Размер блока, доля чтения и записи и порядок обращений меняют результат.')
-    c.save_svg('storage-devices')
+    c.save_static('storage-devices')
 
-    c = Canvas('Граница между приложением и ядром', 'Обычные вычисления выполняет CPU; привилегированные операции проходят через ядро', True)
-    c.card(40, 145, 470, 110, 'ПРИЛОЖЕНИЕ A', 'Пользовательское пространство', PRIMARY, True)
-    c.card(610, 145, 470, 110, 'ПРИЛОЖЕНИЕ B', 'Пользовательское пространство', SECONDARY, True)
+    c = Canvas('Граница между приложением и ядром', 'Обычные вычисления выполняет CPU; привилегированные операции проходят через ядро')
+    c.card(40, 145, 470, 110, 'ПРИЛОЖЕНИЕ A', 'Пользовательское пространство', PRIMARY)
+    c.card(610, 145, 470, 110, 'ПРИЛОЖЕНИЕ B', 'Пользовательское пространство', SECONDARY)
     c.arrow((275, 270), (275, 345), PRIMARY)
     c.arrow((845, 270), (845, 345), SECONDARY)
     c.text(340, 292, 'Системные вызовы', 23, MUTED, True, width=440)
@@ -171,44 +167,87 @@ def static_diagrams():
     c.rect((40, 550, 1080, 602), PANEL, PANEL)
     c.text(560, 562, 'ОБОРУДОВАНИЕ: CPU · RAM · накопители · сеть', 22, center=True)
     c.footer('Переход в ядро не обязательно означает переключение на другую задачу.')
-    c.save_svg('kernel-boundary')
+    c.save_static('kernel-boundary')
 
 
-def sync_mermaid_style():
-    variables = {
-        'darkMode': True, 'background': BG, 'fontFamily': FONT_FAMILY,
-        'primaryColor': SURFACE, 'primaryTextColor': INK, 'primaryBorderColor': PRIMARY,
-        'secondaryColor': PANEL, 'secondaryTextColor': INK, 'secondaryBorderColor': BORDER,
-        'tertiaryColor': STYLE['fills']['secondary'], 'tertiaryTextColor': INK, 'tertiaryBorderColor': BORDER,
-        'lineColor': PRIMARY, 'textColor': INK, 'mainBkg': SURFACE,
-        'edgeLabelBackground': BG, 'nodeTextColor': INK,
-        'noteBkgColor': PANEL, 'noteTextColor': INK, 'noteBorderColor': BORDER,
-        'actorBkg': SURFACE, 'actorBorder': PRIMARY, 'actorTextColor': INK,
-        'actorLineColor': BORDER, 'signalColor': PRIMARY, 'signalTextColor': INK,
-        'labelBoxBkgColor': PANEL, 'labelBoxBorderColor': BORDER, 'labelTextColor': INK,
-        'loopTextColor': INK, 'activationBkgColor': PANEL, 'activationBorderColor': PRIMARY,
+def replacement_diagrams():
+    c = Canvas('Иерархия памяти', 'Регистры, кэши и RAM решают разные задачи')
+    c.card(40, 190, 300, 215, 'РЕГИСТРЫ', 'Текущие значения\nвнутри CPU', PRIMARY, True)
+    c.card(410, 190, 300, 215, 'КЭШИ CPU', 'Копии рабочих\nданных', PRIMARY)
+    c.card(780, 190, 300, 215, 'RAM', 'Основная\nрабочая память', PRIMARY)
+    for a, b in [(350, 398), (720, 768)]:
+        c.arrow((a, 270), (b, 270), INK)
+        c.arrow((b, 325), (a, 325), INK)
+    c.text(40, 485, 'От быстрых малых хранилищ — к большему рабочему объёму', 24, width=1030)
+    c.footer('Реальные размеры, задержки и разделение кэшей зависят от процессора.')
+    c.save_static('memory-hierarchy')
+
+    c = Canvas('Системный вызов', 'Запрос к ядру проходит через проверку аргументов и прав')
+    c.card(100, 150, 300, 95, 'ПРИЛОЖЕНИЕ', '', PRIMARY)
+    c.card(720, 150, 300, 95, 'ЯДРО', '', PRIMARY, True)
+    c.line([(250, 250), (250, 515)], MUTED, 1)
+    c.line([(870, 250), (870, 515)], MUTED, 1)
+    c.arrow((250, 295), (870, 295), INK)
+    c.text(560, 258, 'Запрос операции', 21, center=True)
+    c.rect((620, 330, 1070, 412), SURFACE, BORDER)
+    c.text(845, 346, 'Проверка аргументов,\nправ и состояния ресурса', 20, width=420, center=True)
+    c.arrow((870, 475), (250, 475), PRIMARY)
+    c.text(560, 437, 'Результат или ошибка', 21, center=True)
+    c.footer('Переход в ядро не обязательно приводит к переключению на другую задачу.')
+    c.save_static('system-call')
+
+    c = Canvas('Состояния задачи', 'Готовность к работе и ожидание события — разные состояния')
+    def node(x, y, label, active=False):
+        fill = PRIMARY if active else SURFACE
+        c.rect((x, y, x+330, y+125), fill, fill)
+        c.text(x+165, y+30, label, 22, ACTIVE_TEXT if active else INK, width=300, center=True)
+    node(40, 170, 'Готова выполнять\nработу')
+    node(750, 170, 'Выполняется\nна CPU', True)
+    node(395, 405, 'Ожидает событие')
+    c.arrow((385, 203), (735, 203), INK)
+    c.text(560, 163, 'получила CPU', 19, center=True)
+    c.arrow((735, 261), (385, 261), INK)
+    c.text(560, 279, 'вытеснена', 19, center=True)
+    c.arrow((865, 311), (740, 435), INK)
+    c.text(915, 349, 'требуется\nожидание', 19, center=True)
+    c.arrow((380, 435), (205, 311), PRIMARY)
+    c.text(170, 351, 'событие\nпроизошло', 19, center=True)
+    c.footer('Готовая задача ждёт CPU; ожидающая задача ещё не может продолжить выполнение.')
+    c.save_static('task-states')
+
+    c = Canvas('Виртуальные и физические страницы', 'Разные процессы могут управляемо разделять одну физическую страницу')
+    c.card(40, 150, 420, 110, 'ПРОЦЕСС A', 'Виртуальная страница 2')
+    c.card(40, 290, 420, 110, 'ПРОЦЕСС B', 'Виртуальная страница 8')
+    c.card(40, 430, 420, 110, 'ПРОЦЕСС A', 'Виртуальная страница 4')
+    c.card(720, 205, 360, 145, 'RAM · КАДР 7', 'Общие физические данные', PRIMARY, True)
+    c.card(720, 430, 360, 110, 'RAM · КАДР 9', 'Другие данные')
+    c.arrow((475, 205), (705, 250), INK)
+    c.arrow((475, 345), (705, 300), INK)
+    c.arrow((475, 485), (705, 485), INK)
+    c.footer('Номер виртуальной страницы не задаёт её физическое расположение.')
+    c.save_static('shared-pages')
+
+
+def update_article_images():
+    replacements = {
+        '04 Оперативная память и кэши.md': ('memory-hierarchy', 'Регистры, кэши CPU и оперативная память'),
+        '01 Операционная система.md': ('system-call', 'Запрос приложения к ядру и возврат результата'),
+        '02 Процессы и потоки.md': ('task-states', 'Переходы задачи между готовностью, выполнением и ожиданием'),
+        '03 Виртуальная память.md': ('shared-pages', 'Две виртуальные страницы разделяют один физический кадр'),
     }
-    directive = '%%{init: ' + json.dumps({'theme': 'base', 'themeVariables': variables}, ensure_ascii=False, separators=(',', ':')) + '}%%'
-    marker = chr(96)*3 + 'mermaid\n'
+    fence = chr(96)*3
+    static_names = ['computer-overview', 'data-representation', 'storage-devices', 'kernel-boundary']
     for path in (ROOT / 'notes').rglob('*.md'):
-        content = path.read_text(encoding='utf-8')
-        updated = re.sub(re.escape(marker) + r'(?:%%\{init: [^\n]*\}%%\n)?', marker + directive + '\n', content)
-        if updated != content:
+        text = path.read_text(encoding='utf-8')
+        updated = text
+        for name in static_names:
+            updated = updated.replace(f'/{name}.svg)', f'/{name}.png)')
+        if path.name in replacements:
+            name, alt = replacements[path.name]
+            image = f'![{alt}](../Вложения/Основы/{name}.png)'
+            updated = re.sub('^'+fence+'mermaid.*?^'+fence, image, updated, flags=re.M | re.S)
+        if updated != text:
             path.write_text(updated, encoding='utf-8', newline='\n')
-    css_path = ROOT / 'notes' / '.obsidian' / 'snippets' / 'reading.css'
-    css = css_path.read_text(encoding='utf-8')
-    begin, end = '/* BEGIN learning visual theme */', '/* END learning visual theme */'
-    css = re.sub(re.escape(begin) + r'.*?' + re.escape(end), '', css, flags=re.S).rstrip()
-    block = f'''{begin}
-.markdown-rendered .mermaid {{
-  background: {BG};
-  border-radius: 16px;
-  padding: 16px;
-  overflow-x: auto;
-}}
-.markdown-rendered img {{ border-radius: 16px; }}
-{end}'''
-    css_path.write_text(css + '\n\n' + block + '\n', encoding='utf-8', newline='\n')
 
 
 def make_gif(name, states, painter):
@@ -339,8 +378,9 @@ def race():
         for x, records, title, color in [(40, left, 'БЕЗ СОГЛАСОВАНИЯ', SUBDUED), (590, right, 'ПОД ОДНИМ MUTEX', SUCCESS)]:
             value, message = records[s]
             c.card(x, 165, 490, 285, title, '', color, True)
-            c.text(x+245, 235, str(value), 78, color, True, center=True)
-            c.text(x+245, 355, message, 22, INK, width=440, center=True)
+            ink = ACTIVE_TEXT if color == PRIMARY else INK
+            c.text(x+245, 235, str(value), 78, ink, False, center=True)
+            c.text(x+245, 355, message, 22, ink, width=440, center=True)
         c.banner(s, len(left), 'Наблюдаем порядок действий', 'Общий ресурс должен изменяться по одному согласованному протоколу')
         c.footer('Потеря обновления возможна и на одном CPU: достаточно такого чередования шагов.')
         return c
@@ -380,7 +420,7 @@ def queue_growth():
         for i in range(s):
             x, y = 395+(i % 4)*76, 280+(i // 4)*65
             c.rect((x, y, x+55, y+45), FILLS[EMPHASIS], EMPHASIS, radius=8)
-            c.text(x+27, y+10, str(i+1), 20, EMPHASIS, True, center=True)
+            c.text(x+27, y+10, str(i+1), 20, ACTIVE_TEXT, False, center=True)
         c.arrow((300, 285), (348, 285), PRIMARY, progress=p)
         c.arrow((760, 285), (808, 285), SUCCESS, progress=p)
         c.banner(s, len(states), f'После {s} шагов: {3*s} поступило − {2*s} завершено = {s} ожидают', 'Без ограничения приёма растут задержка и память очереди')
@@ -390,8 +430,9 @@ def queue_growth():
 
 
 if __name__ == '__main__':
-    sync_mermaid_style()
     static_diagrams()
+    replacement_diagrams()
+    update_article_images()
     for build in [processor, cache, context_switch, virtual_memory, race, file_buffers, queue_growth]:
         build()
         print('Built', build.__name__, flush=True)
