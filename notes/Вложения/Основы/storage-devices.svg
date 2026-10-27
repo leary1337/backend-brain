@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="660" viewBox="0 0 1120 660" role="img"><title>HDD и SSD: разные способы хранения</title><rect width="1120" height="660" fill="#f6f8fc"/><text x="40.00" y="27" font-family="Segoe UI,Arial,sans-serif" font-size="32" font-weight="600" fill="#16263d" dominant-baseline="text-before-edge">HDD и SSD: разные способы хранения</text>
+<text x="40.00" y="78" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#52647b" dominant-baseline="text-before-edge">Характер доступа влияет на задержку и скорость устройства</text>
+<rect x="40" y="140" width="490" height="340" rx="16" fill="white" stroke="#d4deea" stroke-width="2"/>
+<text x="60.00" y="158" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="600" fill="#2563eb" dominant-baseline="text-before-edge">HDD · магнитный накопитель</text>
+<circle cx="175" cy="305" r="92" fill="#e8eef7" stroke="#2563eb" stroke-width="2"/>
+<circle cx="175" cy="305" r="67" fill="#e8eef7" stroke="#2563eb" stroke-width="2"/>
+<circle cx="175" cy="305" r="42" fill="#e8eef7" stroke="#2563eb" stroke-width="2"/>
+<circle cx="175" cy="305" r="15" fill="#2563eb" stroke="#2563eb" stroke-width="2"/>
+<polyline points="255,220 195,290" fill="none" stroke="#b76b0c" stroke-width="11" stroke-linejoin="round"/>
+<circle cx="255" cy="220" r="12" fill="#b76b0c" stroke="#b76b0c" stroke-width="2"/>
+<text x="300.00" y="245" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Вращение</text>
+<text x="300.00" y="276" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Перемещение</text>
+<text x="300.00" y="307" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">головки</text>
+<rect x="590" y="140" width="490" height="340" rx="16" fill="white" stroke="#d4deea" stroke-width="2"/>
+<text x="610.00" y="158" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="600" fill="#16845b" dominant-baseline="text-before-edge">SSD · электронная память</text>
+<rect x="635" y="235" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="689" y="235" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="743" y="235" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="797" y="235" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="635" y="289" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="689" y="289" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="743" y="289" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="797" y="289" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="635" y="343" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="689" y="343" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="743" y="343" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<rect x="797" y="343" width="38" height="38" rx="5" fill="#e5f5ed" stroke="#16845b" stroke-width="2"/>
+<text x="880.00" y="245" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Ячейки памяти</text>
+<text x="880.00" y="275" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Контроллер</text>
+<text x="880.00" y="305" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Без механики</text>
+<text x="40.00" y="520" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="600" fill="#2563eb" dominant-baseline="text-before-edge">Задержка</text>
+<text x="40.00" y="560" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Время одной операции</text>
+<text x="405.00" y="520" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="600" fill="#16845b" dominant-baseline="text-before-edge">Пропускная способность</text>
+<text x="405.00" y="560" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Байт за секунду</text>
+<text x="850.00" y="520" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="600" fill="#b76b0c" dominant-baseline="text-before-edge">IOPS</text>
+<text x="850.00" y="560" font-family="Segoe UI,Arial,sans-serif" font-size="21" font-weight="400" fill="#16263d" dominant-baseline="text-before-edge">Операций за секунду</text>
+<text x="40.00" y="625" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="400" fill="#52647b" dominant-baseline="text-before-edge">Размер блока, доля чтения и записи и порядок обращений меняют результат.</text></svg>
