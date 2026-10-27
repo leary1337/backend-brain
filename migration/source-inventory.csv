@@ -2,14 +2,14 @@
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/!Краткое содержание.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Goroutine.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Каналы.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Основы конкурентности в Go.md,go,pending,,
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Основы конкурентности в Go.md,go,partial,notes/Операционные системы/04 Конкурентность и синхронизация.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Паттерны многопоточности.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Примитивы синхронизации.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Garbage Collector.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Runtime.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Компиляция и сборка.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Планировщик.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Управление памятью.md,go,pending,,
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Компиляция и сборка.md,go,partial,notes/Компьютер/01 Компьютер.md; notes/Компьютер/03 Процессор.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Планировщик.md,go,partial,notes/Операционные системы/02 Процессы и потоки.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Управление памятью.md,go,partial,notes/Операционные системы/03 Виртуальная память.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Основы языка Go.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Ошибки и паники/Обработка ошибок.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Ошибки и паники/Паники.md,go,pending,,
@@ -254,18 +254,18 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Templates/Reference Template.md,navigat
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/interviews/avito/system-design.md,navigation-or-cross-topic,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/README.md,os-or-operations,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/cgroups.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/cpu.md,os-or-operations,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/cpu.md,os-or-operations,partial,notes/Компьютер/03 Процессор.md; notes/Операционные системы/06 Производительность.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/debugging.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/epoll.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/file-descriptors.md,os-or-operations,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/epoll.md,os-or-operations,partial,notes/Операционные системы/05 Файлы и системные вызовы.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/file-descriptors.md,os-or-operations,partial,notes/Операционные системы/05 Файлы и системные вызовы.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/load-average.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/memory.md,os-or-operations,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/memory.md,os-or-operations,partial,notes/Операционные системы/03 Виртуальная память.md; notes/Операционные системы/05 Файлы и системные вызовы.md; notes/Операционные системы/06 Производительность.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/namespaces.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/processes-and-threads.md,os-or-operations,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/processes-and-threads.md,os-or-operations,partial,notes/Операционные системы/02 Процессы и потоки.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/signals.md,os-or-operations,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/sockets.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/system-calls.md,os-or-operations,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/virtual-memory.md,os-or-operations,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/system-calls.md,os-or-operations,partial,notes/Операционные системы/01 Операционная система.md; notes/Операционные системы/05 Файлы и системные вызовы.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/linux/virtual-memory.md,os-or-operations,partial,notes/Операционные системы/03 Виртуальная память.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/messaging/README.md,distributed-systems,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/messaging/inbox-pattern.md,distributed-systems,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/messaging/kafka/README.md,distributed-systems,pending,,
