@@ -1,14 +1,8 @@
-# Personal UI state and local capture
-.obsidian/workspace*.json
-.obsidian/graph.json
-.obsidian/cache/
-.obsidian/plugins/
-.obsidian/obsidian.json
-.trash/
-inbox/*
-!inbox/README.md
-
-# Runtime/editor noise
+notes/.obsidian/workspace*.json
+notes/.obsidian/graph.json
+notes/.obsidian/cache/
+notes/.obsidian/plugins/
+notes/.trash/
 __pycache__/
 .DS_Store
 Thumbs.db
