@@ -7,3 +7,13 @@ body { --file-line-width: 820px; }
 /* Keep metadata available in the properties sidebar, outside article reading. */
 .markdown-reading-view .metadata-container { display: none; }
 .markdown-reading-view .inline-title { display: none; }
+
+/* BEGIN learning visual theme */
+.markdown-rendered .mermaid {
+  background: #0c1913;
+  border-radius: 16px;
+  padding: 16px;
+  overflow-x: auto;
+}
+.markdown-rendered img { border-radius: 16px; }
+/* END learning visual theme */

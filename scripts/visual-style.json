@@ -1,0 +1,22 @@
+{
+  "name": "dark-green",
+  "background": "#0c1913",
+  "surface": "#14271c",
+  "border": "#355d43",
+  "panel": "#173121",
+  "text": "#edf7ef",
+  "muted": "#a5bda9",
+  "font_family": "Segoe UI,Arial,sans-serif",
+  "primary": "#70ee91",
+  "success": "#91dca6",
+  "emphasis": "#c0e5a4",
+  "subdued": "#b1c6b5",
+  "secondary": "#7dcdaa",
+  "fills": {
+    "primary": "#193d27",
+    "success": "#1b3828",
+    "emphasis": "#2a3825",
+    "subdued": "#26352b",
+    "secondary": "#183b2e"
+  }
+}
