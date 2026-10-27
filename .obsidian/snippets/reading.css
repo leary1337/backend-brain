@@ -1,0 +1,9 @@
+/* Comfortable article width; keep technical content scrollable. */
+body { --file-line-width: 820px; }
+.markdown-rendered { line-height: 1.65; }
+.markdown-rendered h2 { margin-top: 1.8em; }
+.markdown-rendered img { max-width: 100%; height: auto; }
+.markdown-rendered pre { overflow-x: auto; }
+/* Keep metadata available in the properties sidebar, outside article reading. */
+.markdown-reading-view .metadata-container { display: none; }
+.markdown-reading-view .inline-title { display: none; }

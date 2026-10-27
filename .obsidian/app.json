@@ -1,0 +1,14 @@
+{
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true,
+  "attachmentFolderPath": "assets",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "inbox",
+  "readableLineLength": true,
+  "showLineNumber": false,
+  "showInlineTitle": false,
+  "propertiesInDocument": "hidden",
+  "defaultViewMode": "preview",
+  "livePreview": true
+}
