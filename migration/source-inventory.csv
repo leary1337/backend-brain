@@ -1,4 +1,4 @@
-﻿revision,path,stage,status,target,decision
+revision,path,stage,status,target,decision
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/!Краткое содержание.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Goroutine.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Каналы.md,go,pending,,
@@ -7,9 +7,9 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Паттер
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Concurrency/Примитивы синхронизации.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Garbage Collector.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Runtime.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Компиляция и сборка.md,go,partial,notes/Компьютер/01 Компьютер.md; notes/Компьютер/03 Процессор.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Компиляция и сборка.md,go,partial,"notes/Компьютер/01 Компьютер.md; notes/Компьютер/03 Процессор.md; notes/Программы/01 Компиляция, линковка и запуск.md","Only language-independent build/link/launch mechanisms reused and verified against compiler/linker/OS primary sources. Go syntax, commands, modules, runtime initialization and advanced Go details deferred to the Go section. Reference article has no questions or exercises."
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Планировщик.md,go,partial,notes/Операционные системы/02 Процессы и потоки.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Управление памятью.md,go,partial,notes/Операционные системы/03 Виртуальная память.md,General foundations reused and checked against primary sources; language-specific details deferred; user review pending.
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Внутреннее устройство Go/Управление памятью.md,go,partial,notes/Операционные системы/03 Виртуальная память.md; notes/Программы/04 Время жизни и владение данными.md; notes/Программы/03 Вызовы функций и стек.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Основы языка Go.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Ошибки и паники/Обработка ошибок.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Ошибки и паники/Паники.md,go,pending,,
@@ -20,7 +20,7 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Структуры да�
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Структуры данных/struct.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Функции и методы/Замыкания.md,go,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Функции и методы/Методы.md,go,pending,,
-cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Функции и методы/Функции.md,go,pending,,
+cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/Go/Функции и методы/Функции.md,go,partial,"notes/Программы/03 Вызовы функций и стек.md; notes/Программы/02 Значения, типы и указатели.md",Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/System Design/Основные термины и компоненты.md,navigation-or-cross-topic,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/System Design/Паттерны и приему проектирования.md,navigation-or-cross-topic,pending,,
 cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Programming/System Design/Распределенное хранение данных.md,navigation-or-cross-topic,pending,,
@@ -60,26 +60,26 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Templates/Reference Template.md,navigat
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/README.md,navigation-or-cross-topic,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/SUMMARY.md,navigation-or-cross-topic,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/README.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/arrays-and-slices.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/arrays-and-slices.md,algorithms,partial,notes/Программы/06 Массивы и связные списки.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/backtracking.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/bfs-and-dfs.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/binary-search.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/complexity.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/complexity.md,algorithms,partial,notes/Программы/05 Сложность и стоимость операций.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/dynamic-programming.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/examples/README.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/go-examples.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/graphs.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/greedy.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/hash-tables.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/hash-tables.md,algorithms,partial,notes/Программы/07 Хеш-таблицы.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/heap.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/intervals.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/linked-lists.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/linked-lists.md,algorithms,partial,notes/Программы/06 Массивы и связные списки.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/prefix-sum.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/queue-and-deque.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/queue-and-deque.md,algorithms,partial,"notes/Программы/09 Стек, очередь и дек.md",Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/sliding-window.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/sorting.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/stack.md,algorithms,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/trees.md,algorithms,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/stack.md,algorithms,partial,"notes/Программы/09 Стек, очередь и дек.md",Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/trees.md,algorithms,partial,notes/Программы/08 Деревья.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/algorithms/two-pointers.md,algorithms,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/backend-architecture/README.md,navigation-or-cross-topic,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/backend-architecture/api-design.md,navigation-or-cross-topic,pending,,
@@ -213,7 +213,7 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Templates/Reference Template.md,navigat
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/closures.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/defer-panic-recover.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/errors.md,go,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/functions.md,go,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/functions.md,go,partial,notes/Программы/03 Вызовы функций и стек.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/interfaces.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/methods.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/language/strings-bytes-runes.md,go,pending,,
@@ -225,9 +225,9 @@ cc2e017c8c4e1d6c5717d17af3b45cba2c3b4a04,Templates/Reference Template.md,navigat
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/performance/race-detector.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/performance/runtime-trace.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/README.md,go,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/compilation.md,go,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/compilation.md,go,partial,"notes/Программы/01 Компиляция, линковка и запуск.md","Only language-independent build/link/launch mechanisms reused and verified against compiler/linker/OS primary sources. Go syntax, commands, modules, runtime initialization and advanced Go details deferred to the Go section. Reference article has no questions or exercises."
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/garbage-collector.md,go,pending,,
-8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/memory-management.md,go,pending,,
+8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/memory-management.md,go,partial,notes/Программы/04 Время жизни и владение данными.md,Language-independent mechanisms reused and checked against primary sources for stage 3. Go syntax/runtime/compiler implementation and specialised algorithm exercises remain outside this section. No claim of complete source migration or learner assessment.
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/netpoller.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/runtime-overview.md,go,pending,,
 8c3e2452becd173cf6f4937bb046e0f9e118b76b,docs/go/runtime/scheduler.md,go,pending,,
